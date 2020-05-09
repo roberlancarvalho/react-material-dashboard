@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component} from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
+import api from '../../services/api'
+import {login} from '../../services/auth'
 import { makeStyles } from '@material-ui/styles';
 import {
   Grid,
@@ -131,92 +133,112 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignIn = props => {
-  const { history } = props;
 
-  const classes = useStyles();
 
-  const [formState, setFormState] = useState({
-    isValid: false,
-    values: {},
-    touched: {},
-    errors: {}
-  });
 
-  useEffect(() => {
-    const errors = validate(formState.values, schema);
-
-    setFormState(formState => ({
-      ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {}
-    }));
-  }, [formState.values]);
-
-  const handleBack = () => {
-    history.goBack();
+class SignIn extends Component {
+  state = {
+    email: "",
+    username:"",
+    password: "",
+    error: ""
   };
+  
+  // const useStyles = useStyles();
+  // const { history } = props;
 
-  const handleChange = event => {
+
+  // const [formState, setFormState] = useState({
+  //   isValid: false,
+  //   values: {},
+  //   touched: {},
+  //   errors: {}
+  // });
+
+  // useEffect(() => {
+  //   const errors = validate(formState.values, schema);
+
+  //   setFormState(formState => ({
+  //     ...formState,
+  //     isValid: errors ? false : true,
+  //     errors: errors || {}
+  //   }));
+  // }, [formState.values]);
+
+  // handleBack = () => {
+  //   history.goBack();
+  // };
+
+  handleChange = event => {
     event.persist();
 
-    setFormState(formState => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        [event.target.name]:
-          event.target.type === 'checkbox'
-            ? event.target.checked
-            : event.target.value
-      },
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true
+    // setFormState(formState => ({
+    //   ...formState,
+    //   values: {
+    //     ...formState.values,
+    //     [event.target.name]:
+    //       event.target.type === 'checkbox'
+    //         ? event.target.checked
+    //         : event.target.value
+    //   },
+    //   touched: {
+    //     ...formState.touched,
+    //     [event.target.name]: true
+    //   }
+    // }));
+  };
+
+  handleSignIn = async e => {
+    e.preventDefault();
+    const { username, email, password } = this.state;
+    if (!username || !email || !password) {
+      this.setState({ error: "Preencha os dados para continuar!" });
+    } else {
+      try {
+        const response = await api.post("", { username, email, password });
+        login(response.data.token);
+        this.props.history.push("/dashboard");
+      } catch (err) {
+        this.setState({
+          error:
+            "Houve um problema com o login, verifique suas credenciais. T.T"
+        });
       }
-    }));
+    }
   };
 
-  const handleSignIn = event => {
-    event.preventDefault();
+  
 
-    localStorage.setItem('email', formState.values.email)
-    localStorage.setItem('username', formState.values.username)
-    localStorage.setItem('password', formState.values.password)
-
-    history.push('/dashboard');
-  };
-
-  const hasError = field =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+    render(){
 
   return (
-    <div className={classes.root}>
+    <div className={makeStyles.root}>
       <Grid
-        className={classes.grid}
+        className={makeStyles.grid}
         container
       >
         <Grid
-          className={classes.quoteContainer}
+          className={makeStyles.quoteContainer}
           item
           lg={5}
         >
-          <div className={classes.quote}>
-            <div className={classes.quoteInner}>
+          <div className={makeStyles.quote}>
+            <div className={makeStyles.quoteInner}>
               <Typography
-                className={classes.quoteText}
+                className={makeStyles.quoteText}
                 variant="h1"
               >
                 Cadastre suas tarefas no sistema e tenha melhor controle e gerenciamento delas. Basta logar com seu email e cadastrá-las na página.
               </Typography>
-              <div className={classes.person}>
+              <div className={makeStyles.person}>
                 <Typography
-                  className={classes.name}
+                  className={makeStyles.name}
                   variant="body1"
                 >
                   Set Tarefas
                 </Typography>
                 <Typography
-                  className={classes.bio}
+                  className={makeStyles.bio}
                   variant="body2"
                 >
                   Garenciador de Tarefas Online
@@ -228,26 +250,26 @@ const SignIn = props => {
 
         
         <Grid
-          className={classes.content}
+          className={makeStyles.content}
           item
           lg={7}
           xs={12}
         >
-          <div className={classes.content}>
-            <div className={classes.contentHeader}>
+          <div className={makeStyles.content}>
+            <div className={makeStyles.contentHeader}>
               {/* <IconButton onClick={handleBack}>
                 <ArrowBackIcon />
               </IconButton> */}
             </div>
 
             
-            <div className={classes.contentBody}>
+            <div className={makeStyles.contentBody}>
               <form
-                className={classes.form}
-                onSubmit={handleSignIn}
+                className={makeStyles.form}
+                onSubmit={this.handleSignIn}
               >
                 <Typography
-                  className={classes.title}
+                  className={makeStyles.title}
                   variant="h2"
                 >
                   Login
@@ -294,67 +316,68 @@ const SignIn = props => {
 
                 <Typography
                   align="center"
-                  className={classes.sugestion}
+                  className={useStyles.sugestion}
                   color="textSecondary"
                   variant="body1"
                 >
                   Entre com seu endereço de email
                 </Typography>
 
+                {this.state.error && <p>{this.state.error}</p>}
 
                 <TextField
-                  className={classes.textField}
-                  error={hasError('username')}
+                  className={useStyles.textField}
+                  // error={hasError('username')}
                   fullWidth
-                  helperText={
-                    hasError('username') ? formState.errors.username[0] : null
-                  }
+                  // helperText={
+                  //   hasError('username') ? formState.errors.username[0] : null
+                  // }
                   label="Nome de usuário"
                   name="username"
-                  onChange={handleChange}
+                  onChange={e => this.setState({ username: e.target.value })}
                   type="text"
-                  value={formState.values.username || ''}
+                  // value={formState.values.username || ''}
                   variant="outlined"
                 />
 
 
                 <TextField
-                  className={classes.textField}
-                  error={hasError('email')}
+                  className={useStyles.textField}
+                  // error={hasError('email')}
                   fullWidth
-                  helperText={
-                    hasError('email') ? formState.errors.email[0] : null
-                  }
+                  // helperText={
+                  //   hasError('email') ? formState.errors.email[0] : null
+                  // }
                   label="Endereço de email"
                   name="email"
-                  onChange={handleChange}
+                  onChange={e => this.setState({ email: e.target.value })}
                   type="email"
-                  value={formState.values.email || ''}
+                  // value={formState.values.email || ''}
                   variant="outlined"
                 />
 
 
                 <TextField
-                  className={classes.textField}
-                  error={hasError('password')}
+                  className={useStyles.textField}
+                  // error={hasError('password')}
                   fullWidth
-                  helperText={
-                    hasError('password') ? formState.errors.password[0] : null
-                  }
+                  // helperText={
+                  //   hasError('password') ? formState.errors.password[0] : null
+                  // }
                   label="Senha"
                   name="password"
-                  onChange={handleChange}
+                  onChange={e => this.setState({ password: e.target.value })}
                   type="password"
-                  value={formState.values.password || ''}
+                  // value={formState.values.password || ''}
                   variant="outlined"
                 />
 
 
 
                 <Button
-                  className={classes.signInButton}
+                  className={useStyles.signInButton}
                   color="primary"
-                  disabled={!formState.isValid}
+                  // disabled={!formState.isValid}
                   fullWidth
                   size="large"
                   type="submit"
@@ -382,6 +405,7 @@ const SignIn = props => {
       </Grid>
     </div>
   );
+}
 };
 
 SignIn.propTypes = {

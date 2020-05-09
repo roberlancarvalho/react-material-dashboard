@@ -35,15 +35,16 @@ const Routes = () => {
 
       {/* <RouteWithLayout
         component={DashboardView}
+        exact
         layout={MainLayout}
         path="/dashboard"
       /> */}
 
       <PrivateRoute
-        path="/dashboard"
-        exact
         component={DashboardView}
+        exact
         layout={MainLayout}
+        path="/dashboard"
         
       />
 

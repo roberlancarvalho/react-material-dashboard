@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Redirect } from 'react-router-dom';
 import { isAuthenticated } from "../../services/auth";   
+import {} from '../../views/SignUp/SignUp'
 
 const PrivateRoute = props => {
   const { layout: Layout, component: Component, ...rest } = props;
@@ -10,11 +11,10 @@ const PrivateRoute = props => {
   return (
   <Route
     {...rest}
-    render={props =>
+    render={mathprops =>
       isAuthenticated() ? (
-        <Component {...props} />,
         <Layout>
-        <Component {...props} />
+        <Component {...mathprops} />
       </Layout>
       ) : (
         <Redirect to={{ pathname: "/", state: { from: props.location } }} />

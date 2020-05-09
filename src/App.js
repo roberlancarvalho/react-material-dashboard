@@ -13,16 +13,8 @@ import validators from './common/validators';
 import Routes from './Routes';
 
 
-
 // const App = () => <Routes />;
 // export default App;
-
-
-
-
-
-
-
 
 
 const browserHistory = createBrowserHistory();

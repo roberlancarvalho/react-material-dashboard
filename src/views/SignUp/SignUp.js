@@ -389,8 +389,10 @@ const SignUp = props => {
   );
 };
 
+
 SignUp.propTypes = {
   history: PropTypes.object
 };
 
 export default withRouter(SignUp);
+
