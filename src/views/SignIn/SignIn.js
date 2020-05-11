@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Component} from 'react';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
+import { Link as RouterLink, withRouter, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
 import api from '../../services/api'
@@ -136,16 +136,30 @@ const useStyles = makeStyles(theme => ({
 
 
 
-class SignIn extends Component {
-  state = {
-    email: "",
-    username:"",
-    password: "",
-    error: ""
-  };
+// class SignIn extends Component {
+//   state = {
+//     email: "",
+//     username:"",
+//     password: "",
+//     error: ""
+//   };
+
+  const SignIn = () => {
+
+    const [username, setUsername] = useState('');
+    // const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+
   
-  // const useStyles = useStyles();
-  // const { history } = props;
+  // style = (useStyles) =>{
+  //   const classes = useStyles();
+  // }
+
+
+
+
+  // const { history } = this.props;
 
 
   // const [formState, setFormState] = useState({
@@ -169,7 +183,7 @@ class SignIn extends Component {
   //   history.goBack();
   // };
 
-  handleChange = event => {
+  const handleChange = event => {
     event.persist();
 
     // setFormState(formState => ({
@@ -188,57 +202,57 @@ class SignIn extends Component {
     // }));
   };
 
-  handleSignIn = async e => {
+  const handleSignIn = async e => {
     e.preventDefault();
-    const { username, email, password } = this.state;
-    if (!username || !email || !password) {
-      this.setState({ error: "Preencha os dados para continuar!" });
-    } else {
+
       try {
-        const response = await api.post("", { username, email, password });
+        const response = await api.post("/wp-json/jwt-auth/v1/token", { username, password });
         login(response.data.token);
-        this.props.history.push("/dashboard");
+        alert("Aeee deu bom")
+        // this.props.history.push("/dashboard");
       } catch (err) {
-        this.setState({
-          error:
-            "Houve um problema com o login, verifique suas credenciais. T.T"
-        });
+       
+        alert("Deu ruim meu fi")
+        
       }
-    }
+    // }
   };
 
   
 
-    render(){
+  // render(){
+    
+    const classes = useStyles();
 
   return (
-    <div className={makeStyles.root}>
+    <div className={classes.root} >
+      
       <Grid
-        className={makeStyles.grid}
+        className={classes.grid}
         container
       >
         <Grid
-          className={makeStyles.quoteContainer}
+          className={classes.quoteContainer}
           item
           lg={5}
         >
-          <div className={makeStyles.quote}>
-            <div className={makeStyles.quoteInner}>
+          <div className={classes.quote}>
+            <div className={classes.quoteInner}>
               <Typography
-                className={makeStyles.quoteText}
+                className={classes.quoteText}
                 variant="h1"
               >
                 Cadastre suas tarefas no sistema e tenha melhor controle e gerenciamento delas. Basta logar com seu email e cadastrá-las na página.
               </Typography>
-              <div className={makeStyles.person}>
+              <div className={classes.person}>
                 <Typography
-                  className={makeStyles.name}
+                  className={classes.quoteText}
                   variant="body1"
                 >
                   Set Tarefas
                 </Typography>
                 <Typography
-                  className={makeStyles.bio}
+                  className={classes.bio}
                   variant="body2"
                 >
                   Garenciador de Tarefas Online
@@ -250,26 +264,26 @@ class SignIn extends Component {
 
         
         <Grid
-          className={makeStyles.content}
+          className={classes.content}
           item
           lg={7}
           xs={12}
         >
-          <div className={makeStyles.content}>
-            <div className={makeStyles.contentHeader}>
+          <div className={classes.content}>
+            <div className={classes.contentHeader}>
               {/* <IconButton onClick={handleBack}>
                 <ArrowBackIcon />
               </IconButton> */}
             </div>
 
             
-            <div className={makeStyles.contentBody}>
+            <div className={classes.contentBody}>
               <form
-                className={makeStyles.form}
-                onSubmit={this.handleSignIn}
+                className={classes.form}
+                onSubmit={handleSignIn}
               >
                 <Typography
-                  className={makeStyles.title}
+                  className={classes.title}
                   variant="h2"
                 >
                   Login
@@ -316,17 +330,17 @@ class SignIn extends Component {
 
                 <Typography
                   align="center"
-                  className={useStyles.sugestion}
+                  className={classes.sugestion}
                   color="textSecondary"
                   variant="body1"
                 >
                   Entre com seu endereço de email
                 </Typography>
 
-                {this.state.error && <p>{this.state.error}</p>}
+                {/* {this.state.error && <p>{this.state.error}</p>} */}
 
                 <TextField
-                  className={useStyles.textField}
+                  className={classes.textField}
                   // error={hasError('username')}
                   fullWidth
                   // helperText={
@@ -334,15 +348,15 @@ class SignIn extends Component {
                   // }
                   label="Nome de usuário"
                   name="username"
-                  onChange={e => this.setState({ username: e.target.value })}
+                  onChange={e => setUsername(e.target.value )}
                   type="text"
                   // value={formState.values.username || ''}
                   variant="outlined"
                 />
 
 
-                <TextField
-                  className={useStyles.textField}
+                {/* <TextField
+                  className={classes.textField}
                   // error={hasError('email')}
                   fullWidth
                   // helperText={
@@ -350,15 +364,15 @@ class SignIn extends Component {
                   // }
                   label="Endereço de email"
                   name="email"
-                  onChange={e => this.setState({ email: e.target.value })}
+                  onChange={e => setEmail(e.target.value )}
                   type="email"
                   // value={formState.values.email || ''}
                   variant="outlined"
-                />
+                /> */}
 
 
                 <TextField
-                  className={useStyles.textField}
+                  className={classes.textField}
                   // error={hasError('password')}
                   fullWidth
                   // helperText={
@@ -366,7 +380,7 @@ class SignIn extends Component {
                   // }
                   label="Senha"
                   name="password"
-                  onChange={e => this.setState({ password: e.target.value })}
+                  onChange={e => setPassword( e.target.value )}
                   type="password"
                   // value={formState.values.password || ''}
                   variant="outlined"
@@ -375,7 +389,7 @@ class SignIn extends Component {
 
 
                 <Button
-                  className={useStyles.signInButton}
+                  className={classes.signInButton}
                   color="primary"
                   // disabled={!formState.isValid}
                   fullWidth
@@ -406,10 +420,12 @@ class SignIn extends Component {
     </div>
   );
 }
-};
+// };
 
 SignIn.propTypes = {
   history: PropTypes.object
 };
 
 export default withRouter(SignIn);
+
+

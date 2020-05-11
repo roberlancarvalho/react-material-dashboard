@@ -2,7 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: "https://wp-for.i9colab.com/wp-json/jwt-auth/v1/token"
+  baseURL: "https://wp-for.i9colab.com"
+          
 });
 
 api.interceptors.request.use(async config => {
