@@ -1,12 +1,13 @@
 import React from 'react';
-
-import {BrowserRouter, Route ,Switch, Redirect } from 'react-router-dom';  ///////////////////////////////////
-
+import {Switch, Redirect } from 'react-router-dom';  ///////////////////////////////////
 import { RouteWithLayout } from './components';
+
+
 import { PrivateRoute } from './components';
+import {isAuthenticated} from "../src/services/auth"
+
 
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
-
 import {
   Dashboard as DashboardView,
   SignIn as SignInView,
@@ -23,9 +24,44 @@ import {
 } from './views';
 
 
+
+
+
+
+
+////// A ROTA PRIVADA NÃO FUNCIONA QUANDO É COLOCADO O <Layout>
+
+// const PrivateRoute = props => {
+//   const { layout: Layout, component: Component, ...rest } = props;
+
+//   return (
+//   <Route
+  
+//     {...rest}
+//     render={ matchProps =>
+//       isAuthenticated() ? (
+//         <Layout>          
+//           <Component {...matchProps} />
+//         </Layout>
+          
+//         ) : (
+//         <Redirect to={{ path: "/", state: { from: props.location } }} />
+        
+//       )}
+    
+//   />
+//   );
+// };
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 const Routes = () => {
   return (
-  <BrowserRouter>
+  // <BrowserRouter>
     <Switch>
       <Redirect
         exact
@@ -100,7 +136,7 @@ const Routes = () => {
 
       <Redirect to="/not-found" />
      </Switch>
-  </BrowserRouter>
+  // </BrowserRouter>
   );
 };
 

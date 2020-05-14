@@ -1,7 +1,10 @@
 import React, { useState, useEffect} from 'react';
-import { Link as RouterLink, withRouter, useHistory } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
+import {useHistory} from 'react-router-dom'
+// import useHistory from "react-router-dom"
 import PropTypes from 'prop-types';
-import validate from 'validate.js';
+
+// import validate from 'validate.js';
 import api from '../../services/api'
 import {login} from '../../services/auth'
 import { makeStyles } from '@material-ui/styles';
@@ -144,7 +147,7 @@ const useStyles = makeStyles(theme => ({
 //     error: ""
 //   };
 
-  const SignIn = () => {
+  const SignIn = props => {
 
     const [username, setUsername] = useState('');
     // const [email, setEmail] = useState('');
@@ -155,11 +158,6 @@ const useStyles = makeStyles(theme => ({
   // style = (useStyles) =>{
   //   const classes = useStyles();
   // }
-
-
-
-
-  // const { history } = this.props;
 
 
   // const [formState, setFormState] = useState({
@@ -201,18 +199,20 @@ const useStyles = makeStyles(theme => ({
     //   }
     // }));
   };
+  const history = useHistory();
 
   const handleSignIn = async e => {
     e.preventDefault();
+
 
       try {
         const response = await api.post("/wp-json/jwt-auth/v1/token", { username, password });
         login(response.data.token);
         alert("Aeee deu bom")
-        // this.props.history.push("/dashboard");
+        history.push("/dashboard");
       } catch (err) {
        
-        alert("Deu ruim meu fi")
+        alert(err + " : Deu ruim meu fi")
         
       }
     // }
