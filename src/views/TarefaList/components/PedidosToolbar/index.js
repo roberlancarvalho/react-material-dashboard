@@ -1,1 +1,1 @@
-export { default } from './TarefasToolbar';
+export { default } from './PedidosToolbar';

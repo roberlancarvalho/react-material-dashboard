@@ -2,60 +2,72 @@ import uuid from 'uuid/v1';
 
 export default [
   {
-    id: uuid(),
+    // id: uuid(),
+    id:'1',
     nome: 'Amazon',
     endereco: 'Center',
     cidade: 'San Diego',
-    uf: 'Califórnia',
+    estado: 'Califórnia',
+    email: 'amazon.services@org.com',
+    telefone: '304-428-3101',
+    avatarUrl: '/images/logos/logo_amazon.jpg',
+    createdAt: 1555016400000
+  },{
+    // id: uuid(),
+    id:'1',
+    nome: 'Amazon',
+    endereco: 'Center',
+    cidade: 'San Diego',
+    estado: 'Califórnia',
     email: 'amazon.services@org.com',
     telefone: '304-428-3101',
     avatarUrl: '/images/logos/logo_amazon.jpg',
     createdAt: 1555016400000
   },
-  {
-    id: uuid(),
-    nome: 'Amazon',
-    endereco: 'Center',
-    cidade: 'San Diego',
-    uf: 'Califórnia',
-    email: 'amazon.services@org.com',
-    telefone: '304-428-3101',
-    avatarUrl: '/images/logos/logo_amazon.jpg',
-    createdAt: 1555016400000
-  },
-  {
-    id: uuid(),
-    nome: 'Amazon',
-    endereco: 'Center',
-    cidade: 'San Diego',
-    uf: 'Califórnia',
-    email: 'amazon.services@org.com',
-    telefone: '304-428-3101',
-    avatarUrl: '/images/logos/logo_amazon.jpg',
-    createdAt: 1555016400000
-  },
-  {
-    id: uuid(),
-    nome: 'Amazon',
-    endereco: 'Center',
-    cidade: 'San Diego',
-    uf: 'Califórnia',
-    email: 'amazon.services@org.com',
-    telefone: '304-428-3101',
-    avatarUrl: '/images/logos/logo_amazon.jpg',
-    createdAt: 1555016400000
-  },
-  {
-    id: uuid(),
-    nome: 'Amazon',
-    endereco: 'Center',
-    cidade: 'San Diego',
-    uf: 'Califórnia',
-    email: 'amazon.services@org.com',
-    telefone: '304-428-3101',
-    avatarUrl: '/images/logos/logo_amazon.jpg',
-    createdAt: 1555016400000
-  },
+  // {
+  //   id: uuid(),
+  //   nome: 'Amazon',
+  //   endereco: 'Center',
+  //   cidade: 'San Diego',
+  //   uf: 'Califórnia',
+  //   email: 'amazon.services@org.com',
+  //   telefone: '304-428-3101',
+  //   avatarUrl: '/images/logos/logo_amazon.jpg',
+  //   createdAt: 1555016400000
+  // },
+  // {
+  //   id: uuid(),
+  //   nome: 'Amazon',
+  //   endereco: 'Center',
+  //   cidade: 'San Diego',
+  //   uf: 'Califórnia',
+  //   email: 'amazon.services@org.com',
+  //   telefone: '304-428-3101',
+  //   avatarUrl: '/images/logos/logo_amazon.jpg',
+  //   createdAt: 1555016400000
+  // },
+  // {
+  //   id: uuid(),
+  //   nome: 'Amazon',
+  //   endereco: 'Center',
+  //   cidade: 'San Diego',
+  //   uf: 'Califórnia',
+  //   email: 'amazon.services@org.com',
+  //   telefone: '304-428-3101',
+  //   avatarUrl: '/images/logos/logo_amazon.jpg',
+  //   createdAt: 1555016400000
+  // },
+  // {
+  //   id: uuid(),
+  //   nome: 'Amazon',
+  //   endereco: 'Center',
+  //   cidade: 'San Diego',
+  //   uf: 'Califórnia',
+  //   email: 'amazon.services@org.com',
+  //   telefone: '304-428-3101',
+  //   avatarUrl: '/images/logos/logo_amazon.jpg',
+  //   createdAt: 1555016400000
+  // },
   // {
   //   id: uuid(),
   //   name: 'Cao Yu',

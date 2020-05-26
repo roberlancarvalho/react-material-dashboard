@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { mostrarMensagem } from './mensagensReducer'
 
+import api from '../../src/services/api'
 
-const http = axios.create({
-    baseURL: 'https://minhastarefas-api.herokuapp.com'
-})
 
 
 const ACTIONS = {
@@ -52,8 +50,8 @@ export const pedidoReducer = (state = ESTADO_INICIAL, action) => {
 export function listar() {
     return dispatch => {
 
-        http.get('/pedidos', {
-            headers: { 'x-tenant-id': localStorage.getItem('email') }
+        api.get('/wp-json/wc/v3/orders', {
+            headers: { 'Authorization': localStorage.getItem('@user-Token') }
         }).then(response => {
             dispatch({
                 type: ACTIONS.LISTAR,
@@ -67,8 +65,8 @@ export function listar() {
 
 export function salvar(pedido) {
     return dispatch => {
-        http.post('/pedidos', pedido, {
-            headers: { 'x-tenant-id': localStorage.getItem('email') }
+        api.post('', pedido, {
+            headers: { 'Authorization': localStorage.getItem('@user-Token') }
         }).then(response => {
             dispatch
             (
@@ -84,8 +82,8 @@ export function salvar(pedido) {
 
 export function deletar(id) {
     return disaptch => {
-        http.delete(`/pedidos/${id}`, {
-            headers: { 'x-tenant-id': localStorage.getItem('email') }
+        api.delete(`//${id}`, {
+            headers: { 'Authorization': localStorage.getItem('@user-Token') }
         }).then(response => {
             disaptch([{
                 type: ACTIONS.REMOVER,
@@ -97,8 +95,8 @@ export function deletar(id) {
 
 export function alterarStatus( id ){
     return dispatch => {
-        http.patch(`pedidos/${id}`, null, {
-            headers: { 'x-tenant-id': localStorage.getItem('email') }
+        api.patch(`/${id}`, null, {
+            headers: { 'Authorization': localStorage.getItem('@user-Token') }
           }).then( response => {
               dispatch([{
                   type: ACTIONS.UPDATE_STATUS, 

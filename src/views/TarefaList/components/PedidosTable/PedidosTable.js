@@ -48,6 +48,14 @@ const PedidosTable = props => {
 
   const classes = useStyles();
 
+
+  let line_items = [];
+  for (let index = 0; index < line_items.length; index++) {
+    const element = line_items[index];
+    return element;
+  }
+
+  
   return (
     <Card
       {...rest}
@@ -60,37 +68,43 @@ const PedidosTable = props => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Id</TableCell>
-                  <TableCell>Cliente</TableCell>
-                  <TableCell>Produto</TableCell>   
-                  <TableCell>Status</TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
+                  {/* <TableCell>Id</TableCell> */}
+                  <TableCell>Id Pedido</TableCell>
+                  <TableCell>Id Produto</TableCell>
+                  <TableCell>Nome do Produto</TableCell>
+                  <TableCell>Preço do Produto</TableCell>   
+                  <TableCell>Quantidade do Produto</TableCell>
+                  <TableCell>Valor</TableCell>
                 </TableRow>
 
               </TableHead>
 
                 <TableBody>
+                  
 
                   {
+
                    pedidos.map( pedido => {
 
                     return(
-                      <TableRow key={pedido.id}>
-                        <TableCell>{pedido.id}</TableCell>
-                        <TableCell>{pedido.cliente}</TableCell>
-                        <TableCell>{pedido.produto}</TableCell>
-                        <TableCell>{pedido.done ? "Entregue" : "Não entregue"}</TableCell>
+                      <TableRow key={pedido.line_items}>
+                        <TableCell>{pedido.line_items[0].id}</TableCell>
+                        <TableCell>{pedido.line_items[0].product_id}</TableCell>
+                        <TableCell>{pedido.line_items[0].name}</TableCell>
+                        <TableCell>{pedido.line_items[0].total}</TableCell>
+                        <TableCell>{pedido.line_items[0].quantity}</TableCell>
+
+                        {/* <TableCell>{pedido.done ? "Entregue" : "Não entregue"}</TableCell>
                         <TableCell>
                           <IconButton onClick={e => props.alterarStatus(pedido.id)} color="secondary">
                             {
                               pedido.done ? ( <DoneAllIcon/> ) : ( <TimerIcon/> )
                             }
                           </IconButton>
-                        </TableCell>
+                        </TableCell> */}
 
                         <TableCell>
-                          <IconButton onClick={e => props.deleteAction(pedido.id)}>
+                          <IconButton onClick={e => props.deleteAction(pedido.line_items[0].id)}>
                               <DeleteIcon/>
                           </IconButton>
                         </TableCell>

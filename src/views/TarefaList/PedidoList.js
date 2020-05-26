@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/styles';
 import { PedidosToolbar, PedidosTable } from './components';
 // import axios from 'axios';
 
+
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
@@ -10,8 +12,9 @@ import {
   salvar,
   deletar,
   alterarStatus
-
 } from '../../store/pedidosReducer'
+
+
 
 import {
   Dialog,
@@ -63,6 +66,8 @@ const PedidoList = (props) => {
           deleteAction={props.deletar}            //---------  PROPS REDUX ---------
         />
       </div>
+
+      
       <Dialog open={props.openDialog} onClose={props.esconderMensagem}> 
         <DialogTitle>Atenção</DialogTitle>
         <DialogContent>

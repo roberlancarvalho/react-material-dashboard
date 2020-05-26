@@ -208,6 +208,10 @@ const useStyles = makeStyles(theme => ({
       try {
         const response = await api.post("/wp-json/jwt-auth/v1/token", { username, password });
         login(response.data.token);
+        
+        // localStorage.setItem('username', response.data.username)
+        // localStorage.setItem('password', response.data.password)
+
         alert("Aeee deu bom")
         history.push("/dashboard");
       } catch (err) {

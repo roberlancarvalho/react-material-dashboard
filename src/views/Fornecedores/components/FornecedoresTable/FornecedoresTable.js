@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import DeleteIcon from '@material-ui/icons/Delete'
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -16,7 +17,8 @@ import {
   TableHead,
   TableRow,
   Typography,
-  TablePagination
+  TablePagination,
+  IconButton
 } from '@material-ui/core';
 
 import { getInitials } from 'helpers';
@@ -118,13 +120,13 @@ const FornecedoresTable = props => {
                       onChange={handleSelectAll}
                     />
                   </TableCell>
+                  <TableCell>id</TableCell>
                   <TableCell>Nome</TableCell>
                   <TableCell>Email</TableCell>
-                  <TableCell>Endereço</TableCell>
                   <TableCell>Cidade</TableCell>
-                  <TableCell>UF</TableCell>
+                  <TableCell>Estado</TableCell>
                   <TableCell>Telefone</TableCell>
-                  <TableCell>Data de cadastro</TableCell>
+                  {/* <TableCell>Data de cadastro</TableCell> */}
                 </TableRow>
               </TableHead>
 
@@ -149,8 +151,11 @@ const FornecedoresTable = props => {
                     </TableCell>
 
 
+                    <TableCell>{fornecedor.id}</TableCell>
+                    <TableCell>{fornecedor.nome}</TableCell>
 
-                    <TableCell>
+
+                    {/* <TableCell>
                       <div className={classes.nameContainer}>
                         <Avatar
                           className={classes.avatar}
@@ -160,23 +165,21 @@ const FornecedoresTable = props => {
                         </Avatar>
                         <Typography variant="body1">{fornecedor.nome}</Typography>
                       </div>
-                    </TableCell>
+                    </TableCell> */}
 
 
                     
                     <TableCell>{fornecedor.email}</TableCell>
                     
                     
-                    <TableCell>
-                      {fornecedor.endereco}
-                    </TableCell>
+                   
 
                     <TableCell>
                       {fornecedor.cidade}
                     </TableCell>
 
                     <TableCell>
-                      {fornecedor.uf}
+                      {fornecedor.estado}
                     </TableCell>
 
 
@@ -184,10 +187,15 @@ const FornecedoresTable = props => {
                     <TableCell>{fornecedor.telefone}</TableCell>
 
 
-
                     <TableCell>
+                          <IconButton onClick={e => props.deleteAction(fornecedor.id)}>
+                              <DeleteIcon/>
+                          </IconButton>
+                        </TableCell>
+
+                    {/* <TableCell>
                       {moment(fornecedor.createdAt).format('DD/MM/YYYY')}
-                    </TableCell>
+                    </TableCell> */}
 
 
                   </TableRow>

@@ -28,7 +28,6 @@ const FornecedoresDetails = props => {
     email: '',
     telefone: '',
     state: '',
-    endereco: '',
     cidade: ''
   });
 
@@ -225,7 +224,7 @@ const FornecedoresDetails = props => {
 
             
 
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -240,7 +239,7 @@ const FornecedoresDetails = props => {
                 value={values.endereco}
                 variant="outlined"
               />
-            </Grid>
+            </Grid> */}
             
             <Grid
               item
