@@ -92,17 +92,29 @@ const ClientesTable = props => {
     setRowsPerPage(event.target.value);
   };
 
+
+
+
   return (
     <Card
       {...rest}
       className={clsx(classes.root, className)}
     >
+
+
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
             <Table>
-              <TableHead>
+
+
+
+
+                <TableHead>
                 <TableRow>
+
+
+                  
                   <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedClientes.length === clientes.length}
@@ -120,15 +132,19 @@ const ClientesTable = props => {
                   <TableCell>Telefone</TableCell>
                   <TableCell>Data de regristro</TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {clientes.slice(0, rowsPerPage).map(cliente => (
-                  <TableRow
+                </TableHead>
+
+                <TableBody>
+                {
+                  clientes.slice(0, rowsPerPage).map(cliente => (
+                    <TableRow
                     className={classes.tableRow}
                     hover
                     key={cliente.id}
                     selected={selectedClientes.indexOf(cliente.id) !== -1}
-                  >
+                    >
+
+
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={selectedClientes.indexOf(cliente.id) !== -1}
@@ -137,6 +153,8 @@ const ClientesTable = props => {
                         value="true"
                       />
                     </TableCell>
+
+
                     <TableCell>
                       <div className={classes.nameContainer}>
                         <Avatar
@@ -148,6 +166,8 @@ const ClientesTable = props => {
                         <Typography variant="body1">{cliente.name}</Typography>
                       </div>
                     </TableCell>
+
+
                     <TableCell>{cliente.email}</TableCell>
                     <TableCell>
                       {cliente.address.city}, {cliente.address.state},{' '}
@@ -157,9 +177,13 @@ const ClientesTable = props => {
                     <TableCell>
                       {moment(cliente.createdAt).format('DD/MM/YYYY')}
                     </TableCell>
-                  </TableRow>
-                ))}
+                    </TableRow>
+                ) )  }
+
               </TableBody>
+
+
+
             </Table>
           </div>
         </PerfectScrollbar>

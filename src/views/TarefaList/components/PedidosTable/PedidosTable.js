@@ -12,6 +12,7 @@ import {
   CardContent,
   Table,
   TableBody,
+  Checkbox,
   TableCell,
   TableHead,
   TableRow,
@@ -48,14 +49,46 @@ const PedidosTable = props => {
 
   const classes = useStyles();
 
+  const [selectedPedidos, setSelectedPedidos] = useState([]);
 
-  let line_items = [];
-  for (let index = 0; index < line_items.length; index++) {
-    const element = line_items[index];
-    return element;
-  }
 
-  
+
+
+  const handleSelectAll = event => {
+    const { pedidos } = props;
+
+    let selectedPedidos;
+
+    if (event.target.checked) {
+      selectedPedidos = pedidos.map(pedido => pedido.id);
+    } else {
+      selectedPedidos = [];
+    }
+
+    setSelectedPedidos(selectedPedidos);
+  };
+
+  const handleSelectOne = (event, id) => {
+    const selectedIndex = selectedPedidos.indexOf(id);
+    let newSelectedPedidos = [];
+
+    if (selectedIndex === -1) {
+      newSelectedPedidos = newSelectedPedidos.concat(selectedPedidos, id);
+    } else if (selectedIndex === 0) {
+      newSelectedPedidos = newSelectedPedidos.concat(selectedPedidos.slice(1));
+    } else if (selectedIndex === selectedPedidos.length - 1) {
+      newSelectedPedidos = newSelectedPedidos.concat(selectedPedidos.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelectedPedidos = newSelectedPedidos.concat(
+        selectedPedidos.slice(0, selectedIndex),
+        selectedPedidos.slice(selectedIndex + 1)
+      );
+    }
+
+    setSelectedPedidos(newSelectedPedidos);
+  };
+
+
   return (
     <Card
       {...rest}
@@ -68,8 +101,21 @@ const PedidosTable = props => {
             <Table>
               <TableHead>
                 <TableRow>
-                  {/* <TableCell>Id</TableCell> */}
-                  <TableCell>Id Pedido</TableCell>
+
+                <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedPedidos.length === pedidos.length}
+                      color="primary"
+                      indeterminate={
+                        selectedPedidos.length > 0 &&
+                        selectedPedidos.length < pedidos.length
+                      }
+                      onChange={handleSelectAll}
+                    />
+                    </TableCell>
+
+                  <TableCell></TableCell>
+                  <TableCell>Id</TableCell>
                   <TableCell>Id Produto</TableCell>
                   <TableCell>Nome do Produto</TableCell>
                   <TableCell>Preço do Produto</TableCell>   
@@ -87,12 +133,33 @@ const PedidosTable = props => {
                    pedidos.map( pedido => {
 
                     return(
-                      <TableRow key={pedido.line_items}>
+
+                      <TableRow key={pedido.line_items}
+                      className={classes.tableRow}
+                      hover
+                      key={pedido.id}
+                      selected={selectedPedidos.indexOf(pedido.id) !== -1}
+                      >
+  
+  
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={selectedPedidos.indexOf(pedido.id) !== -1}
+                          color="primary"
+                          onChange={event => handleSelectOne(event, pedido.id)}
+                          value="true"
+                        />
+                      </TableCell>
+
+    
+
+
+                      
                         <TableCell>{pedido.line_items[0].id}</TableCell>
                         <TableCell>{pedido.line_items[0].product_id}</TableCell>
                         <TableCell>{pedido.line_items[0].name}</TableCell>
-                        <TableCell>{pedido.line_items[0].total}</TableCell>
                         <TableCell>{pedido.line_items[0].quantity}</TableCell>
+                        <TableCell>{pedido.line_items[0].total}</TableCell>
 
                         {/* <TableCell>{pedido.done ? "Entregue" : "Não entregue"}</TableCell>
                         <TableCell>

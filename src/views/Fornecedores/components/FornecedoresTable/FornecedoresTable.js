@@ -105,8 +105,7 @@ const FornecedoresTable = props => {
 
             
             <Table>
-
-
+              
               <TableHead>
                 <TableRow>
                   <TableCell padding="checkbox">
@@ -120,6 +119,7 @@ const FornecedoresTable = props => {
                       onChange={handleSelectAll}
                     />
                   </TableCell>
+
                   <TableCell>id</TableCell>
                   <TableCell>Nome</TableCell>
                   <TableCell>Email</TableCell>
@@ -170,23 +170,9 @@ const FornecedoresTable = props => {
 
                     
                     <TableCell>{fornecedor.email}</TableCell>
-                    
-                    
-                   
-
-                    <TableCell>
-                      {fornecedor.cidade}
-                    </TableCell>
-
-                    <TableCell>
-                      {fornecedor.estado}
-                    </TableCell>
-
-
-
+                    <TableCell>{fornecedor.cidade}</TableCell>
+                    <TableCell>{fornecedor.estado}</TableCell>
                     <TableCell>{fornecedor.telefone}</TableCell>
-
-
                     <TableCell>
                           <IconButton onClick={e => props.deleteAction(fornecedor.id)}>
                               <DeleteIcon/>
@@ -196,13 +182,10 @@ const FornecedoresTable = props => {
                     {/* <TableCell>
                       {moment(fornecedor.createdAt).format('DD/MM/YYYY')}
                     </TableCell> */}
-
-
                   </TableRow>
 
-                ))}
+            ))}  
               </TableBody>
-
 
             </Table>
           </div>
