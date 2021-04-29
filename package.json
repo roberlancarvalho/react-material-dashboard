@@ -33,6 +33,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.8.0",
     "clsx": "^1.0.4",
+    "eslint": "^7.25.0",
     "history": "^4.9.0",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
@@ -53,7 +54,6 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "eslint": "5.16.0",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "prettier": "^1.17.1",
